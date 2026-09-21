@@ -17,12 +17,26 @@ public function ficha(ManagerRegistry $doctrine, int $codigo = 1): Response
 {
     $repositorio = $doctrine->getRepository(Contacto::class);
     $contacto = $repositorio->find($codigo);
-    $html = "
-    <h1>Detalle del contacto</h1>
-    <p>Nombre: " . $contacto->getNombre() . "</p>
-    <p>Teléfono: " . $contacto->getTelefono() . "</p>
-    <p>Email: " . $contacto->getEmail() . "</p>
-    ";
-    return new Response($html);
+    return $this->render('ficha_contacto.html.twig', [
+        'contacto' => $contacto,
+    ]);
+}
+
+#[Route('/contacto/nuevo/{nombre}/{telefono}/{email}', name: 'nuevo-con-datos')]
+public function nuevoConDatos(
+ ManagerRegistry $doctrine,
+ string $nombre, 
+ string $telefono, 
+ string $email
+)
+{
+    $contacto = new Contacto();
+    $contacto->setNombre($nombre);
+    $contacto->setTelefono($telefono);
+    $contacto->setEmail($email);
+    $entityManager = $doctrine->getManager();
+    $entityManager->persist($contacto);
+    $entityManager->flush();
+    return $this->redirectToRoute('contacto', ["codigo" => $contacto->getId()]);
 }
 }
