@@ -29,7 +29,7 @@ public function ficha(ManagerRegistry $doctrine, Request $request, int $codigo =
     // La primera instrucción suele ser esta, ya que cogemos el repositorio de la entidad asociada
 
     if(!$this->getUser()){
-        return $this->redirectToRoute('inicio');
+        return $this->redirectToRoute('app_login');
     }
 
     $repositorio = $doctrine->getRepository(Contacto::class);
@@ -92,6 +92,9 @@ $entityManager->flush();
 public function nuevo(ManagerRegistry $doctrine, Request $request)
 
 {
+    if(!$this->getUser()){
+        return $this->redirectToRoute('app_login');
+    }
 
     $contacto = new Contacto();
 
