@@ -1,16 +1,32 @@
-{%extends 'base.html.twig' %}
+{% extends 'base.html.twig' %}
+{% block title %}Inicio - Lista de Contactos{% endblock %}
 
-{%block title%}Inicio{%endblock%}
-
-{%block body%}
+{% block body %}
 <h1>Contactos</h1>
 <h2>Bienvenido a la web de contactos.</h2>
-<p>Página de inicio</p>
-<a href="{{ path('nuevo') }}"><button>Nuevo Contacto</button></a>
-<br>
-{%for contacto in contactos %}
-<a href="{{ path('contacto', {codigo : contacto.id}) }}">
-    {%include 'partials/_contacto.html.twig' with {contacto: contacto}%}
-</a>
-{%endfor%}
-{%endblock%}
+
+<!-- Enlace para añadir un contacto -->
+<p>
+    <a href="{{ path('nuevo') }}"><button type="button">➕ Nuevo Contacto</button></a>
+</p>
+<hr>
+
+{% for contacto in contactos %}
+<div class="contacto-card">
+    <!-- Enlace a la página con detalles -->
+    <a href="{{ path('contacto', {codigo: contacto.id}) }}">
+        {% include 'partials/_contacto.html.twig' with {contacto: contacto} %}
+    </a>
+
+    <!-- Botón para Editar -->
+    <p>
+        <a href="{{ path('editar', {codigo: contacto.id}) }}">
+            <button type="button">Editar</button>
+        </a>
+    </p>
+</div>
+<hr>
+{% else %}
+<p>No hay contactos guardados.</p>
+{% endfor %}
+{% endblock %}

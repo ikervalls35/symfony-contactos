@@ -1,7 +1,11 @@
 {% extends 'base.html.twig' %}
-{% block title %}Nuevo contacto
-{% endblock %}
+{% block title %}Nuevo contacto{% endblock %}
 {% block body %}
-<h1>Nuevo contacto</h1>
-{{ form(formulario) }}
+<h1>Añadir nuevo contacto</h1>
+{{ form_start(formulario) }}
+{{ form_widget(formulario) }}
+<div style="margin-top: 15px;">
+    <button type="submit">Guardar</button>
+</div>
+{{ form_end(formulario) }}
 {% endblock %}
