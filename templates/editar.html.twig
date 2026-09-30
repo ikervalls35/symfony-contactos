@@ -4,4 +4,7 @@
 {% block body %}
 <h1>Modificar contacto</h1>
 {{ form(formulario) }}
+<form method="POST">
+    <button type="submit" name="accion" value="borrar"> Borrar Contacto </button>
+</form>
 {% endblock %}

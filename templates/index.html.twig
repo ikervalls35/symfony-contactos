@@ -1,9 +1,16 @@
-{% extends 'base.html.twig' %}
-{% block body %}
+{%extends 'base.html.twig' %}
+
+{%block title%}Inicio{%endblock%}
+
+{%block body%}
 <h1>Contactos</h1>
 <h2>Bienvenido a la web de contactos.</h2>
 <p>Página de inicio</p>
-{% for contacto in contactos %}
-{{ include ('partials/_contacto.html.twig', {'contacto': contacto})}}
-{% endfor %}
-{% endblock %}
+<a href="{{ path('nuevo') }}"><button>Nuevo Contacto</button></a>
+<br>
+{%for contacto in contactos %}
+<a href="{{ path('contacto', {codigo : contacto.id}) }}">
+    {%include 'partials/_contacto.html.twig' with {contacto: contacto}%}
+</a>
+{%endfor%}
+{%endblock%}

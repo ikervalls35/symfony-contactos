@@ -1,13 +1,16 @@
 <?php
+
 namespace App\Form;
+
 use App\Entity\Contacto;
 use App\Entity\Provincia;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+
 class ContactoFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -15,13 +18,19 @@ class ContactoFormType extends AbstractType
         $builder
             ->add('nombre')
             ->add('telefono')
-            ->add('email', EmailType::class, array('label' => 'Correo electrónico'))
+            ->add('email', EmailType::class, [
+                'label' => 'Correo electrónico',
+            ])
             ->add('provincia', EntityType::class, [
                 'class' => Provincia::class,
                 'choice_label' => 'nombre',
                 'label' => 'Provincia',
+                'placeholder' => 'Seleccione una provincia',
+                'required' => true,
             ])
-            ->add('save', SubmitType::class, array('label' => 'Enviar'));
+            ->add('save', SubmitType::class, [
+                'label' => 'Enviar',
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

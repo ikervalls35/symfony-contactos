@@ -1,11 +1,14 @@
-{% extends 'base.html.twig' %}
-{%block title %}Ficha del contacto{%endblock%}
-{%block body %}
+{%extends 'base.html.twig' %}
+{%block title%}Ficha del contacto{%endblock%}
+{%block body%}
 {%if contacto%}
 <h1>Ficha del contacto</h1>
-{% include '/partials/_contacto.html.twig' with {contacto: contacto} %}
+{%include 'partials/_contacto.html.twig' with {contacto: contacto}%}
+<form method="POST">
+    <button type="submit" name="accion" value="editar"> Editar </button>
+    <button type="submit" name="accion" value="borrar"> Borrar </button>
+</form>
 {%else%}
 <p>No se ha encontrado el contacto</p>
 {%endif%}
-
 {%endblock%}
